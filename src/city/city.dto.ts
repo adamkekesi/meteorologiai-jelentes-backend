@@ -8,5 +8,12 @@ export default class CreateCityDto implements ICity {
     @Length(2)
     @IsAlpha()
     @IsUppercase()
-    public name: string;
+    public code: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @Length(50)
+    @IsAlpha()
+    @IsUppercase()
+    public fullName: string;
 }
