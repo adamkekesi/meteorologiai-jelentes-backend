@@ -3,7 +3,6 @@ import { NextFunction, Request, Response, Router } from "express";
 import IController from "../interfaces/controller.interface";
 import HttpException from "../exceptions/HttpException";
 import IdNotValidException from "../exceptions/IdNotValidException";
-import IRequestWithUser from "../interfaces/requestWithUser.interface";
 import authMiddleware from "../middleware/auth.middleware";
 import validationMiddleware from "../middleware/validation.middleware";
 import cityModel from "./city.model";
