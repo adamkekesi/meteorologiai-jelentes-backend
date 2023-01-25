@@ -1,28 +1,47 @@
-[{
-  "_id": 1,
-  "name": "PP"
-},{
-  "_id": 2,
-  "name": "BC"
-},{
-  "_id": 3,
-  "name": "BP"
-},{
-  "_id": 4,
-  "name": "PR"
-},{
-  "_id": 5,
-  "name": "KE"
-},{
-  "_id": 6,
-  "name": "PA"
-},{
-  "_id": 7,
-  "name": "DC"
-},{
-  "_id": 8,
-  "name": "SM"
-},{
-  "_id": 9,
-  "name": "SN"
-}]
+[
+    {
+        "_id": 1,
+        "code": "PP",
+        "fullName": "Pápa"
+    },
+    {
+        "_id": 2,
+        "code": "BC",
+        "fullName": "Békéscsaba"
+    },
+    {
+        "_id": 3,
+        "code": "BP",
+        "fullName": "Budapest"
+    },
+    {
+        "_id": 4,
+        "code": "PR",
+        "fullName": "Pér"
+    },
+    {
+        "_id": 5,
+        "code": "KE",
+        "fullName": "Kecskemét"
+    },
+    {
+        "_id": 6,
+        "code": "PA",
+        "fullName": "Pannonhalma"
+    },
+    {
+        "_id": 7,
+        "code": "DC",
+        "fullName": "Debrecen"
+    },
+    {
+        "_id": 8,
+        "code": "SM",
+        "fullName": "Szombathely"
+    },
+    {
+        "_id": 9,
+        "code": "SN",
+        "fullName": "Szolnok"
+    }
+]
