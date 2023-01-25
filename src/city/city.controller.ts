@@ -105,7 +105,7 @@ export default class CityController implements IController {
         }
     };
 
-    private createCity = async (req: IRequestWithUser, res: Response, next: NextFunction) => {
+    private createCity = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const cityData: ICity = req.body;
             const createdCity = new cityModel({
