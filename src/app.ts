@@ -8,6 +8,8 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import morgan from "morgan";
 import { config } from "dotenv";
+import userModel from "./user/user.model";
+import measurementModel from "./measurement/measurement.model";
 
 export default class App {
     public app: express.Application;
@@ -99,6 +101,8 @@ export default class App {
         });
         mongoose.connection.on("connected", () => {
             console.log("Connected to MongoDB server.");
+            userModel.init();
+            measurementModel.init();
         });
     }
 }

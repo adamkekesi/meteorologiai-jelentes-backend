@@ -1,5 +1,4 @@
-import { Types } from "mongoose";
-export default interface IMeasurements {
+export default interface IMeasurement {
     _id: number;
     city: number;
     time: string;

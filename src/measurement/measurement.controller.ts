@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response, Router } from "express";
 
 import IController from "../interfaces/controller.interface";
-import CreateMeasurementsDto from "./measurements.dto";
+import CreateMeasurementDto from "./measurement.dto";
 import HttpException from "../exceptions/HttpException";
 import IdNotValidException from "../exceptions/IdNotValidException";
-import IMeasurements from "./measurements.interface";
+import IMeasurement from "./measurement.interface";
 import authMiddleware from "../middleware/auth.middleware";
-import measurementsModel from "./measurements.model";
+import measurementModel from "./measurement.model";
 import validationMiddleware from "../middleware/validation.middleware";
-import MeasurementNotFoundException from "exceptions/MeasurementNotFoundException";
+import MeasurementNotFoundException from "../exceptions/MeasurementNotFoundException";
 
-export default class MeasurementsController implements IController {
+export default class MeasurementController implements IController {
     public path = "/measurements";
     public router = Router();
-    private measurementsM = measurementsModel;
+    private measurementM = measurementModel;
 
     constructor() {
         this.initializeRoutes();
@@ -23,15 +23,15 @@ export default class MeasurementsController implements IController {
         this.router.get(this.path, authMiddleware, this.getAllMeasurements);
         this.router.get(`${this.path}/:id`, authMiddleware, this.getMeasurementById);
         this.router.get(`${this.path}/:offset/:limit/:order/:sort/:keyword?`, authMiddleware, this.getPaginatedMeasurements);
-        this.router.patch(`${this.path}/:id`, [authMiddleware, validationMiddleware(CreateMeasurementsDto, true)], this.modifyMeasurement);
+        this.router.patch(`${this.path}/:id`, [authMiddleware, validationMiddleware(CreateMeasurementDto, true)], this.modifyMeasurement);
         this.router.delete(`${this.path}/:id`, authMiddleware, this.deleteMeasurements);
-        this.router.post(this.path, [authMiddleware, validationMiddleware(CreateMeasurementsDto)], this.createMeasurement);
+        this.router.post(this.path, [authMiddleware, validationMiddleware(CreateMeasurementDto)], this.createMeasurement);
     }
 
     private getAllMeasurements = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const count = await this.measurementsM.countDocuments();
-            const measurements = await this.measurementsM.find();
+            const count = await this.measurementM.countDocuments();
+            const measurements = await this.measurementM.find();
             res.send({ count: count, measurements: measurements });
         } catch (error) {
             next(new HttpException(400, error.message));
@@ -48,15 +48,15 @@ export default class MeasurementsController implements IController {
             let count = 0;
             if (req.params.keyword) {
                 const myRegex = new RegExp(req.params.keyword, "i"); // i for case insensitive
-                count = await this.measurementsM.find({ $or: [{ measurementName: myRegex }, { description: myRegex }] }).count();
-                measurements = await this.measurementsM
+                count = await this.measurementM.find({ $or: [{ measurementName: myRegex }, { description: myRegex }] }).count();
+                measurements = await this.measurementM
                     .find({ $or: [{ measurementName: myRegex }, { description: myRegex }] })
                     .sort(`${sort == -1 ? "-" : ""}${order}`)
                     .skip(offset)
                     .limit(limit);
             } else {
-                count = await this.measurementsM.countDocuments();
-                measurements = await this.measurementsM
+                count = await this.measurementM.countDocuments();
+                measurements = await this.measurementM
                     .find({})
                     .sort(`${sort == -1 ? "-" : ""}${order}`)
                     .skip(offset)
@@ -72,7 +72,7 @@ export default class MeasurementsController implements IController {
         try {
             const id = req.params.id;
             if (id) {
-                const measurement = await this.measurementsM.findById(id).populate("city", "-password");
+                const measurement = await this.measurementM.findById(id).populate("city", "-password");
                 if (measurement) {
                     res.send(measurement);
                 } else {
@@ -90,8 +90,8 @@ export default class MeasurementsController implements IController {
         try {
             const id = req.params.id;
             if (id) {
-                const measurementData: IMeasurements = req.body;
-                const measurement = await this.measurementsM.findByIdAndUpdate(id, measurementData, { new: true });
+                const measurementData: IMeasurement = req.body;
+                const measurement = await this.measurementM.findByIdAndUpdate(id, measurementData, { new: true });
                 if (measurement) {
                     res.send(measurement);
                 } else {
@@ -107,11 +107,8 @@ export default class MeasurementsController implements IController {
 
     private createMeasurement = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const measurementData: IMeasurements = req.body;
-            const createdMeasurement = new this.measurementsM({
-                ...measurementData,
-                city: req.city._id,
-            });
+            const measurementData: IMeasurement = req.body;
+            const createdMeasurement = new this.measurementM(measurementData);
             const savedMeasurement = await createdMeasurement.save();
             await savedMeasurement.populate("city", "-password");
             res.send(savedMeasurement);
@@ -124,7 +121,7 @@ export default class MeasurementsController implements IController {
         try {
             const id = req.params.id;
             if (id) {
-                const successResponse = await this.measurementsM.findByIdAndDelete(id);
+                const successResponse = await this.measurementM.findByIdAndDelete(id);
                 if (successResponse) {
                     res.sendStatus(200);
                 } else {

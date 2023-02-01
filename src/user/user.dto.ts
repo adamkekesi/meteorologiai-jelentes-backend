@@ -1,6 +1,4 @@
-import { IsArray, ArrayNotEmpty, IsOptional, IsString, IsBoolean, IsEmail, ValidateNested } from "class-validator";
-// import { Match } from "./match.decorator";
-import CreateAddressDto from "./address.dto";
+import { IsArray, ArrayNotEmpty, IsString, IsBoolean, IsEmail } from "class-validator";
 import IUser from "./user.interface";
 
 export default class CreateUserDto implements IUser {
@@ -9,14 +7,6 @@ export default class CreateUserDto implements IUser {
 
     @IsEmail()
     public email: string;
-
-    // Example - compare two fields in document:
-    // @IsEmail()
-    // @Match("email", { message: "email and email_address_confirm don't match." })
-    // public email_address_confirm: string;
-
-    @IsBoolean()
-    public email_verified: boolean;
 
     @IsBoolean()
     public auto_login: boolean;
@@ -31,8 +21,4 @@ export default class CreateUserDto implements IUser {
     @ArrayNotEmpty()
     @IsString({ each: true })
     public roles: string[];
-
-    @IsOptional()
-    @ValidateNested()
-    public address?: CreateAddressDto;
 }

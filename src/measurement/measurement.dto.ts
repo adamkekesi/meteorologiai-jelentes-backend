@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
-export default class CreateMeasurementsDto {
+export default class CreateMeasurementDto {
     @IsNumber()
     @IsNotEmpty()
     _id: number;

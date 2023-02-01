@@ -1,10 +1,9 @@
 import App from "./app";
 import AuthenticationController from "./authentication/authentication.controller";
-import PostController from "./post/post.controller";
-import ReportController from "./report/report.controller";
 import UserController from "./user/user.controller";
-import RecipeController from "./recipe/recipe.controller";
+import MeasurementController from "./measurement/measurement.controller";
+import CityController from "./city/city.controller";
 
-const app = new App([new PostController(), new AuthenticationController(), new UserController(), new ReportController(), new RecipeController()]);
+const app = new App([new AuthenticationController(), new UserController(), new MeasurementController(), new CityController()]);
 
 app.listen();

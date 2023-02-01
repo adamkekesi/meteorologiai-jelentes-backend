@@ -1,9 +1,9 @@
 // https://mongoosejs.com/docs/validation.html
 
 import { Schema, model } from "mongoose";
-import IMeasurements from "./measurements.interface";
+import IMeasurement from "./measurement.interface";
 
-const measurementsSchema = new Schema<IMeasurements>(
+const measurementSchema = new Schema<IMeasurement>(
     {
         _id: Number,
         city: {
@@ -27,6 +27,6 @@ const measurementsSchema = new Schema<IMeasurements>(
     { versionKey: false },
 );
 
-const measurementsModel = model<IMeasurements>("Measurements", measurementsSchema);
+const measurementModel = model<IMeasurement>("Measurements", measurementSchema);
 
-export default measurementsModel;
+export default measurementModel;
