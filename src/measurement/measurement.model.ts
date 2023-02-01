@@ -27,6 +27,6 @@ const measurementSchema = new Schema<IMeasurement>(
     { versionKey: false },
 );
 
-const measurementModel = model<IMeasurement>("measurements", measurementSchema);
+const measurementModel = model<IMeasurement>("measurement", measurementSchema);
 
 export default measurementModel;

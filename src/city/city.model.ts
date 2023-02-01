@@ -20,6 +20,6 @@ const citySchema = new Schema(
     { versionKey: false },
 );
 
-const cityModel = model<ICity>("cities", citySchema);
+const cityModel = model<ICity>("city", citySchema);
 
 export default cityModel;

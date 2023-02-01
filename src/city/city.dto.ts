@@ -6,13 +6,13 @@ export default class CreateCityDto implements ICity {
     @IsNotEmpty()
     @IsString()
     @Length(2)
-    @IsAlpha()
+    @IsAlpha("hu-HU")
     @IsUppercase()
     public code: string;
 
     @IsNotEmpty()
     @IsString()
     @MaxLength(50)
-    @IsAlpha()
+    @IsAlpha("hu-HU")
     public fullName: string;
 }

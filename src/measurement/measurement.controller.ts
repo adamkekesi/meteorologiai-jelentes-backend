@@ -44,6 +44,7 @@ export default class MeasurementController implements IController {
             const limit = parseInt(req.params.limit);
             const order = req.params.order;
             const sort = parseInt(req.params.sort); // desc: -1  asc: 1
+            console.log(limit);
             let measurements = [];
             let count = 0;
             if (req.params.keyword) {
@@ -72,7 +73,7 @@ export default class MeasurementController implements IController {
         try {
             const id = req.params.id;
             if (id) {
-                const measurement = await this.measurementM.findById(id).populate("city", "-password");
+                const measurement = await this.measurementM.findById(id).populate("city");
                 if (measurement) {
                     res.send(measurement);
                 } else {
@@ -110,7 +111,7 @@ export default class MeasurementController implements IController {
             const measurementData: IMeasurement = req.body;
             const createdMeasurement = new this.measurementM(measurementData);
             const savedMeasurement = await createdMeasurement.save();
-            await savedMeasurement.populate("city", "-password");
+            await savedMeasurement.populate("city");
             res.send(savedMeasurement);
         } catch (error) {
             next(new HttpException(400, error.message));
