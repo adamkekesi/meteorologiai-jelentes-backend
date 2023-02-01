@@ -1,0 +1,1 @@
+"c:\Program Files\MongoDB\Server\5.0\bin\mongoimport.exe" --uri="mongodb+srv://admin:admin@meteorologiai-jelentes.w7ccvqk.mongodb.net/meteorologiai-jelentes?retryWrites=true&w=majority" --collection=measurements --drop --file=measurements.json --jsonArray

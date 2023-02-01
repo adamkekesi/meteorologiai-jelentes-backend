@@ -16,11 +16,10 @@ const citySchema = new Schema(
             unique: true,
             length: 50,
         },
-
     },
     { versionKey: false },
 );
 
-const cityModel = model<ICity>("Cities", citySchema);
+const cityModel = model<ICity>("cities", citySchema);
 
 export default cityModel;

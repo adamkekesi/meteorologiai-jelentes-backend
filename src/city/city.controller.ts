@@ -19,18 +19,17 @@ export default class CityController implements IController {
     }
 
     private initializeRoutes() {
-        this.router.get(this.path, authMiddleware, this.getAllCities);
-        this.router.get(`${this.path}/:id`, authMiddleware, this.getCityById);
-        this.router.patch(`${this.path}/:id`, [authMiddleware, validationMiddleware(CreateCityDto, true)], this.modifyCity);
-        this.router.delete(`${this.path}/:id`, authMiddleware, this.deleteCity);
-        this.router.post(this.path, [authMiddleware, validationMiddleware(CreateCityDto)], this.createCity);
+        this.router.get(this.path, /* authMiddleware, */ this.getAllCities);
+        this.router.get(`${this.path}/:id`, /* authMiddleware, */ this.getCityById);
+        this.router.patch(`${this.path}/:id`, [/* authMiddleware, */ validationMiddleware(CreateCityDto, true)], this.modifyCity);
+        this.router.delete(`${this.path}/:id`, /* authMiddleware, */ this.deleteCity);
+        this.router.post(this.path, [/* authMiddleware, */ validationMiddleware(CreateCityDto)], this.createCity);
     }
 
     private getAllCities = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const count = await cityModel.countDocuments();
             const cities = await cityModel.find();
-            res.send({ count: count, cities: cities });
+            res.send({ cities: cities });
         } catch (error) {
             next(new HttpException(400, error.message));
         }
