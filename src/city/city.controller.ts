@@ -19,7 +19,7 @@ export default class CityController implements IController {
     }
 
     private initializeRoutes() {
-        this.router.get(this.path, authMiddleware, this.getAllCities);
+        this.router.get(this.path, this.getAllCities);
         this.router.get(`${this.path}/:id`, authMiddleware, this.getCityById);
         this.router.patch(`${this.path}/:id`, [authMiddleware, validationMiddleware(CreateCityDto, true)], this.modifyCity);
         this.router.delete(`${this.path}/:id`, authMiddleware, this.deleteCity);
@@ -31,7 +31,7 @@ export default class CityController implements IController {
             const cities = await cityModel.find();
             res.send({ cities: cities });
         } catch (error) {
-            next(new HttpException(400, error.message));
+            next(new HttpException(500, error.message));
         }
     };
 
@@ -49,7 +49,7 @@ export default class CityController implements IController {
                 next(new IdNotValidException(id));
             }
         } catch (error) {
-            next(new HttpException(400, error.message));
+            next(new HttpException(500, error.message));
         }
     };
 
