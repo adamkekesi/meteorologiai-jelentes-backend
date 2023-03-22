@@ -20,9 +20,9 @@ export default class MeasurementController implements IController {
     }
 
     private initializeRoutes() {
-        this.router.get(this.path, authMiddleware, this.getAllMeasurements);
-        this.router.get(`${this.path}/:id`, authMiddleware, this.getMeasurementById);
-        this.router.get(`${this.path}/:offset/:limit/:order/:sort/:keyword?`, authMiddleware, this.getPaginatedMeasurements);
+        this.router.get(this.path, this.getAllMeasurements);
+        this.router.get(`${this.path}/:id`, this.getMeasurementById);
+        this.router.get(`${this.path}/:offset/:limit/:order/:sort/:keyword?`, this.getPaginatedMeasurements);
         this.router.patch(`${this.path}/:id`, [authMiddleware, validationMiddleware(CreateMeasurementDto, true)], this.modifyMeasurement);
         this.router.delete(`${this.path}/:id`, authMiddleware, this.deleteMeasurements);
         this.router.post(this.path, [authMiddleware, validationMiddleware(CreateMeasurementDto)], this.createMeasurement);

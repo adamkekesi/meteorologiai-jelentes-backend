@@ -94,6 +94,88 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "summary": "Create new city",
+                "description": "Creates a new city",
+                "tags": ["City"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "city",
+                        "description": "The city object to create",
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateCityDto"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "The city object to create",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCityDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response, returns the created city",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/City"
+                                },
+                                "example": {
+                                    "_id": 1,
+                                    "code": "BP",
+                                    "fullName": "Budapest"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Session id missing or session has expired, please log in!"
+                                        },
+                                        "status": {
+                                            "type": "number",
+                                            "example": 401
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error occured",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "number",
+                                            "example": 500
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/cities/{id}": {
@@ -143,6 +225,148 @@
                         }
                     }
                 }
+            },
+            "patch": {
+                "summary": "Update a city",
+                "description": "Updates an existing city partially",
+                "tags": ["City"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id of the city to update",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "The object with new values",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCityDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response, returns the updated city",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/City"
+                                },
+                                "example": {
+                                    "_id": 1,
+                                    "code": "BP",
+                                    "fullName": "Budapest"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Session id missing or session has expired, please log in!"
+                                        },
+                                        "status": {
+                                            "type": "number",
+                                            "example": 401
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error occured",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "number",
+                                            "example": 500
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a city",
+                "description": "Deletes a city from the db",
+                "tags": ["City"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id of the city to delete",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Session id missing or session has expired, please log in!"
+                                        },
+                                        "status": {
+                                            "type": "number",
+                                            "example": 401
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error occured",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "number",
+                                            "example": 500
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/measurements": {
@@ -163,17 +387,18 @@
             },
             "post": {
                 "summary": "Create a new measurement",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "measurement",
-                        "description": "The measurement object to create",
-                        "schema": {
-                            "$ref": "#/components/schemas/Measurement"
-                        },
-                        "required": true
-                    }
-                ],
+
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateMeasurementDto"
+                            }
+                        }
+                    },
+                    "description": "The measurement object to create",
+                    "required": true
+                },
                 "responses": {
                     "201": {
                         "description": "Returns the newly created measurement",
@@ -218,7 +443,7 @@
                     }
                 }
             },
-            "put": {
+            "patch": {
                 "summary": "Update a measurement by ID",
                 "parameters": [
                     {
@@ -226,20 +451,20 @@
                         "name": "id",
                         "description": "The ID of the measurement to update",
                         "required": true,
-                        "schema": {
-                            "$ref": "#/components/schemas/CreateMeasurementDto"
-                        }
-                    },
-                    {
-                        "in": "path",
-                        "name": "measurement",
-                        "description": "The measurement object with new values",
-                        "schema": {
-                            "$ref": "#/components/schemas/CreateMeasurementDto"
-                        },
-                        "required": true
+                        "schema": { "type": "number" }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateMeasurementDto"
+                            }
+                        }
+                    },
+                    "description": "The measurement object with new values",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Returns the updated measurement",
@@ -286,6 +511,10 @@
                 "type": "object",
                 "description": "The class that contains the data for creating a new city.",
                 "properties": {
+                    "_id": {
+                        "type": "number",
+                        "format": "int32"
+                    },
                     "code": {
                         "type": "string",
                         "description": "The code of the city, max 2 characters, Hungarian characters.",
