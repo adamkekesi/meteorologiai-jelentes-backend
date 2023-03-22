@@ -27,7 +27,7 @@ export default class CityController implements IController {
         this.router.get(`${this.path}/:id`, authMiddleware, this.getCityById);
         this.router.patch(`${this.path}/:id`, [authMiddleware, validationMiddleware(CreateCityDto, true)], this.modifyCity);
         this.router.delete(`${this.path}/:id`, authMiddleware, this.deleteCity);
-        this.router.post(this.path, [authMiddleware,validationMiddleware(CreateCityDto)], this.createCity);
+        this.router.post(this.path, [authMiddleware, validationMiddleware(CreateCityDto)], this.createCity);
     }
 
     private getAllCities = async (req: Request, res: Response, next: NextFunction) => {
