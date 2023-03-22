@@ -3,7 +3,7 @@
     "info": {
         "title": "REST API minta backend",
         "version": "1.0.0",
-        "description": "<h1>When the impostor is sus ඞ</h1>"
+        "description": "<h1>Meateorológia jelentés Swagger</h1><br><img src='https://i.ibb.co/1LbLpHR/db-model.png' alt='db-model'>"
     },
     "servers": [
         {
@@ -143,138 +143,143 @@
                         }
                     }
                 }
-            },
-            "/measurements": {
-                "get": {
-                    "summary": "Get all measurements",
-                    "responses": {
-                        "200": {
-                            "description": "Returns an array of all measurements",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "$ref": "#/components/schemas/Measurement"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "post": {
-                    "summary": "Create a new measurement",
-                    "parameters": [
-                        {
-                            "in": "path",
-                            "name": "measurement",
-                            "description": "The measurement object to create",
-                            "schema": {
-                                "$ref": "#/components/schemas/Measurement"
-                            },
-                            "required": true
-                        }
-                    ],
-                    "responses": {
-                        "201": {
-                            "description": "Returns the newly created measurement",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "$ref": "#/components/schemas/Measurement"
-                                    }
+            }
+        },
+        "/measurements": {
+            "get": {
+                "summary": "Get all measurements",
+                "tags": ["Measurement"],
+                "responses": {
+                    "200": {
+                        "description": "Returns an array of all measurements",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Measurement"
                                 }
                             }
                         }
                     }
                 }
             },
-            "/measurements/{id}": {
-                "get": {
-                    "summary": "Get a measurement by ID",
-                    "parameters": [
-                        {
-                            "in": "path",
-                            "name": "id",
-                            "description": "The ID of the measurement to retrieve",
-                            "required": true,
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateMeasurementDto"
-                            }
-                        }
-                    ],
-                    "responses": {
-                        "200": {
-                            "description": "Returns the specified measurement",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "$ref": "#/components/schemas/CreateMeasurementDto"
-                                    }
+            "post": {
+                "summary": "Create a new measurement",
+                "tags": ["Measurement"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "measurement",
+                        "description": "The measurement object to create",
+                        "schema": {
+                            "$ref": "#/components/schemas/Measurement"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Returns the newly created measurement",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Measurement"
                                 }
                             }
-                        },
-                        "404": {
-                            "description": "Measurement not found"
                         }
                     }
-                },
-                "put": {
-                    "summary": "Update a measurement by ID",
-                    "parameters": [
-                        {
-                            "in": "path",
-                            "name": "id",
-                            "description": "The ID of the measurement to update",
-                            "required": true,
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateMeasurementDto"
-                            }
-                        },
-                        {
-                            "in": "path",
-                            "name": "measurement",
-                            "description": "The measurement object with new values",
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateMeasurementDto"
-                            },
-                            "required": true
+                }
+            }
+        },
+        "/measurements/{id}": {
+            "get": {
+                "summary": "Get a measurement by ID",
+                "tags": ["Measurement"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The ID of the measurement to retrieve",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateMeasurementDto"
                         }
-                    ],
-                    "responses": {
-                        "200": {
-                            "description": "Returns the updated measurement",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "$ref": "#/components/schemas/CreateMeasurementDto"
-                                    }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the specified measurement",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateMeasurementDto"
                                 }
                             }
-                        },
-                        "404": {
-                            "description": "Measurement not found"
                         }
+                    },
+                    "404": {
+                        "description": "Measurement not found"
                     }
-                },
-                "delete": {
-                    "summary": "Delete a measurement by ID",
-                    "parameters": [
-                        {
-                            "in": "path",
-                            "name": "id",
-                            "description": "The ID of the measurement to delete",
-                            "required": true,
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateMeasurementDto"
+                }
+            },
+            "put": {
+                "summary": "Update a measurement by ID",
+                "tags": ["Measurement"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The ID of the measurement to update",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateMeasurementDto"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "measurement",
+                        "description": "The measurement object with new values",
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateMeasurementDto"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the updated measurement",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateMeasurementDto"
+                                }
                             }
                         }
-                    ],
-                    "responses": {
-                        "204": {
-                            "description": "Measurement deleted"
-                        },
-                        "404": {
-                            "description": "Measurement not found"
+                    },
+                    "404": {
+                        "description": "Measurement not found"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a measurement by ID",
+                "tags": ["Measurement"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The ID of the measurement to delete",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateMeasurementDto"
                         }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Measurement deleted"
+                    },
+                    "404": {
+                        "description": "Measurement not found"
                     }
                 }
             }
@@ -371,66 +376,54 @@
             "Measurement": {
                 "type": "object",
                 "properties": {
-                  "_id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
-                  "city": {
-                    "type": "integer",
-                    "description": "Reference to the City model",
-                    "format": "int32"
-                  },
-                  "time": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "wind": {
-                    "type": "string"
-                  },
-                  "temperature": {
-                    "type": "number",
-                    "format": "float"
-                  }
+                    "_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "city": {
+                        "type": "integer",
+                        "description": "Reference to the City model",
+                        "format": "int32"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "wind": {
+                        "type": "string"
+                    },
+                    "temperature": {
+                        "type": "number",
+                        "format": "float"
+                    }
                 },
-                "required": [
-                  "_id",
-                  "city",
-                  "time",
-                  "wind",
-                  "temperature"
-                ]
-              },
+                "required": ["_id", "city", "time", "wind", "temperature"]
+            },
 
             "CreateMeasurementDto": {
                 "type": "object",
                 "properties": {
-                  "_id": {
-                    "type": "number",
-                    "format": "int32"
-                  },
-                  "city": {
-                    "type": "number",
-                    "format": "int32"
-                  },
-                  "time": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "wind": {
-                    "type": "string"
-                  },
-                  "temperature": {
-                    "type": "number",
-                    "format": "float"
-                  }
+                    "_id": {
+                        "type": "number",
+                        "format": "int32"
+                    },
+                    "city": {
+                        "type": "number",
+                        "format": "int32"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "wind": {
+                        "type": "string"
+                    },
+                    "temperature": {
+                        "type": "number",
+                        "format": "float"
+                    }
                 },
-                "required": [
-                  "_id",
-                  "city",
-                  "time",
-                  "wind",
-                  "temperature"
-                ]
+                "required": ["_id", "city", "time", "wind", "temperature"]
             }
         },
         "securitySchemes": {
