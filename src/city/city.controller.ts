@@ -9,10 +9,14 @@ import cityModel from "./city.model";
 import CreateCityDto from "./city.dto";
 import ICity from "./city.interface";
 import CityNotFoundException from "../exceptions/CityNotFoundException";
+import hasRelationException from "../exceptions/HasRelationException";
+import measurementModel from "../measurement/measurement.model";
 
 export default class CityController implements IController {
     public path = "/cities";
     public router = Router();
+    private cityM = cityModel;
+    private measurementM = measurementModel;
 
     constructor() {
         this.initializeRoutes();
@@ -89,11 +93,16 @@ export default class CityController implements IController {
         try {
             const id = req.params.id;
             if (id) {
-                const successResponse = await cityModel.findByIdAndDelete(id);
-                if (successResponse) {
-                    res.sendStatus(200);
+                const hasRelation = await this.cityM.findOne({ _id: { $eq: id } });
+                if (hasRelation) {
+                    next(new hasRelationException(id));
                 } else {
-                    next(new CityNotFoundException(id));
+                    const successResponse = await cityModel.findByIdAndDelete(id);
+                    if (successResponse) {
+                        res.sendStatus(200);
+                    } else {
+                        next(new CityNotFoundException(id));
+                    }
                 }
             } else {
                 next(new IdNotValidException(id));
