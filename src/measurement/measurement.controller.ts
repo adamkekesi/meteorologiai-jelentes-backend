@@ -9,11 +9,14 @@ import authMiddleware from "../middleware/auth.middleware";
 import measurementModel from "./measurement.model";
 import validationMiddleware from "../middleware/validation.middleware";
 import MeasurementNotFoundException from "../exceptions/MeasurementNotFoundException";
+import HasRelationException from "../exceptions/HasRelationException";
+import cityModel from "../city/city.model";
 
 export default class MeasurementController implements IController {
     public path = "/measurements";
     public router = Router();
     private measurementM = measurementModel;
+    private cityM = cityModel;
 
     constructor() {
         this.initializeRoutes();
@@ -122,12 +125,13 @@ export default class MeasurementController implements IController {
         try {
             const id = req.params.id;
             if (id) {
-                const successResponse = await this.measurementM.findByIdAndDelete(id);
-                if (successResponse) {
-                    res.sendStatus(200);
-                } else {
-                    next(new MeasurementNotFoundException(id));
-                }
+                    const successResponse = await this.measurementM.findByIdAndDelete(id);
+                    if (successResponse) {
+                        res.sendStatus(200);
+                    } else {
+                        next(new MeasurementNotFoundException(id));
+                    }
+                
             } else {
                 next(new IdNotValidException(id));
             }
