@@ -3,7 +3,7 @@
     "info": {
         "title": "REST API minta backend",
         "version": "1.0.0",
-        "description": "<h1>Meateorológia jelentés Swagger</h1>"
+        "description": "<h1>Meateorológia jelentés Swagger</h1><br><img src='https://i.ibb.co/1LbLpHR/db-model.png' alt='db-model'>"
     },
     "servers": [
         {
