@@ -3,7 +3,7 @@
     "info": {
         "title": "REST API minta backend",
         "version": "1.0.0",
-        "description": "<h1>When the impostor is sus ඞ</h1>"
+        "description": "<h1>Meateorológia jelentés Swagger</h1>"
     },
     "servers": [
         {
@@ -148,6 +148,7 @@
         "/measurements": {
             "get": {
                 "summary": "Get all measurements",
+                "tags": ["Measurement"],
                 "responses": {
                     "200": {
                         "description": "Returns an array of all measurements",
@@ -163,6 +164,7 @@
             },
             "post": {
                 "summary": "Create a new measurement",
+                "tags": ["Measurement"],
                 "parameters": [
                     {
                         "in": "path",
@@ -191,6 +193,7 @@
         "/measurements/{id}": {
             "get": {
                 "summary": "Get a measurement by ID",
+                "tags": ["Measurement"],
                 "parameters": [
                     {
                         "in": "path",
@@ -220,6 +223,7 @@
             },
             "put": {
                 "summary": "Update a measurement by ID",
+                "tags": ["Measurement"],
                 "parameters": [
                     {
                         "in": "path",
@@ -258,6 +262,7 @@
             },
             "delete": {
                 "summary": "Delete a measurement by ID",
+                "tags": ["Measurement"],
                 "parameters": [
                     {
                         "in": "path",
