@@ -93,7 +93,7 @@ export default class CityController implements IController {
         try {
             const id = req.params.id;
             if (id) {
-                const hasRelation = await this.cityM.findOne({ _id: { $eq: id } });
+                const hasRelation = await this.measurementM.findOne({ city: { $eq: id } });
                 if (hasRelation) {
                     next(new hasRelationException(id));
                 } else {
