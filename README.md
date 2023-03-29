@@ -1,4 +1,4 @@
-https://shy-cyan-hermit-crab-hem.cyclic.app
+https://meteorologiai-jelentes.cyclic.app/
 
 # jedlik-express-mongoose-ts-backend-template
 
