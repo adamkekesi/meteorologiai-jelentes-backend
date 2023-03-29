@@ -943,6 +943,89 @@
                     }
                 }
             }
+        },
+        "/measurements/{offset}/{limit}/{field}/{filter}": {
+            "get": {
+                "tags": ["Measurement"],
+                "summary": "Get paginated measurement with filters",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "offset",
+                        "description": "Offset the data",
+                        "schema": {
+                            "type": "number",
+                            "example": 0
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "limit",
+                        "description": "Number of records the API sending",
+                        "schema": {
+                            "type": "number",
+                            "example": 2
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "field",
+                        "description": "Sort the records by field",
+                        "schema": {
+                            "type": "string",
+                            "example": "-city"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "description": "Filtering the records",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "count": {
+                                            "type": "number",
+                                            "description": "A szűrőnek megfelelő rekordok száma",
+                                            "example": "16"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "description": "A maximum {limit} számú, szűrőnek megfelelő rekord.",
+                                            "items": {
+                                            "$ref": "#/components/schemas/Measurement"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1133,7 +1216,6 @@
                     }
                 }
             }
-        
         },
         "securitySchemes": {
             "session": {
